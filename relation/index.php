@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -10,11 +8,11 @@
 <meta property="description" content="異世界スマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！ネタバレ防止機能付き">
 <meta property="og:site_name" content="異世界はスマートフォンとともに。応援サイト">
 <meta property="og:url" content="http://isesuma-data.com/">
-<meta property="og:title" content="キャラクター相関図｜異世界はスマートフォンとともに。応援サイト">
-<meta property="og:description" content="異世界スマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
+<meta property="og:title" content="キャラクター相関図 - 異世界はスマートフォンとともに。応援サイト">
+<meta property="og:description" content="イセスマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
 <meta property="og:type" content="website">
-<!-- 要修正 <meta property="og:image" content="./img/paula-icon.jpg"> --?
-<!-- 要修正 <link rel="canonical" href="http://vallaria.net/relation">　-->
+<meta property="og:image" content="http://isesuma.vallaria.net/img/top/main_img.jpg">
+<link rel="canonical" href="http://isesuma.vallaria.net/relation">
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">

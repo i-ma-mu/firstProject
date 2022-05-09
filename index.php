@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,10 +9,10 @@
 <meta property="og:site_name" content="異世界はスマートフォンとともに。応援サイト">
 <meta property="og:url" content="http://isesuma-data.com/">
 <meta property="og:title" content="異世界はスマートフォンとともに。応援サイト">
-<meta property="og:description" content="異世界スマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
+<meta property="og:description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
 <meta property="og:type" content="website">
-<!-- 要修正 <meta property="og:image" content="./img/paula-icon.jpg"> --?
-<!-- 要修正 <link rel="canonical" href="http://vallaria.net/">　-->
+<meta property="og:image" content="http://isesuma.vallaria.net/img/top/main_img.jpg">
+<link rel="canonical" href="http://isesuma.vallaria.net">
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -50,15 +48,15 @@
       <table id="news_table" class="table my-4">
         <tbody>
           <tr>
-            <th>2022年5月9日 20:00</th>
+            <th>2022年5月9日 21:00</th>
             <td>「<a href="/relation/">キャラ相関図</a>」を追加しました。</td>
           </tr>
           <tr>
-            <th>2022年5月9日 20:00</th>
+            <th>2022年5月9日 21:00</th>
             <td>「<a href="/">トップページ</a>」を追加しました。</td>
           </tr>
           <tr>
-            <th>2022年5月9日 20:00</th>
+            <th>2022年5月9日 21:00</th>
             <td>本サイト「異世界はスマートフォンとともに。応援サイト」を開設しました。</td>
           </tr>
         </tbody>
