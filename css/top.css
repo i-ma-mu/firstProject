@@ -1,0 +1,69 @@
+section.wave{
+  position: relative;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+section.wave::before{
+  content: '';
+  display: block;
+  width: 100%;
+  height: 17px;
+  position: absolute;
+  top: -16px;
+  left: 0;
+  background: url("/img/common/wave_white_under.png") repeat-x;
+  background-position: bottom center;
+}
+section.wave::after{
+  content: '';
+  display: block;
+  width: 100%;
+  height: 17px;
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  background: url("/img/common/wave_white_upper.png") repeat-x;
+  background-position: bottom center;
+}
+
+main section#topBar{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(243, 170, 182);
+  font-family: 'Kiwi Maru', serif;
+  font-weight: 500;
+}
+main section#topImg{
+  height: auto;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: url("/img/top/main_img.jpg") no-repeat;
+  background-size: cover;
+}
+main section#topImg::before{
+  content: '';
+  width: 100%;
+  height: auto;
+  background: inherit;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  position: absolute;
+  top: -35px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+}
+main section#topImg img{
+  height: 400px;
+}
+
+main section#link{
+  background: rgb(243, 170, 182);
+}
