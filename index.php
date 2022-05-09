@@ -29,7 +29,7 @@
 <body>
   <header>
     <h1>
-      <img src="/img/common/logo.png">
+      <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
     </h1>
     <nav class="gnav">
       <ul>
@@ -50,12 +50,16 @@
       <table id="news_table" class="table my-4">
         <tbody>
           <tr>
-            <th>11月11日 11:11</th>
-            <td>「<a href="/relation/">キャラ相関図</a>」を更新しました。</td>
+            <th>2022年5月9日 20:00</th>
+            <td>「<a href="/relation/">キャラ相関図</a>」を追加しました。</td>
           </tr>
           <tr>
-            <th>11月11日 11:11</th>
-            <td>「<a href="/">トップページ</a>」を更新しました。</td>
+            <th>2022年5月9日 20:00</th>
+            <td>「<a href="/">トップページ</a>」を追加しました。</td>
+          </tr>
+          <tr>
+            <th>2022年5月9日 20:00</th>
+            <td>本サイト「異世界はスマートフォンとともに。応援サイト」を開設しました。</td>
           </tr>
         </tbody>
       </table>

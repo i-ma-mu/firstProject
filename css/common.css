@@ -6,6 +6,15 @@ h2,h3{
   margin-bottom: 1rem;
   font-family: 'Kiwi Maru', serif;
 }
+.bg-theme{
+  background: rgb(243, 170, 182);
+}
+.h-1px{
+  height: 1px;
+}
+.h-9px{
+  height: 9px;
+}
 
 .badge-costom{
   display: inline-block;

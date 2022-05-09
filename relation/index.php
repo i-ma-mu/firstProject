@@ -29,8 +29,7 @@
 <body>
   <header>
     <h1>
-      <!-- <div style="width: 100%; height: auto; background-image: url('/img/common/logo.png'); background-size: 100% 100%; background-repeat: no-repeat;"></div> -->
-      <img xmlns="http://www.w3.org/2000/svg" src="/img/common/logo.png">
+      <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
     </h1>
     <nav class="gnav">
       <ul>
@@ -39,7 +38,7 @@
       </ul>
     </nav>
   </header>
-  <div style="background: rgb(243, 170, 182);width:100%;height:9px;"></div>
+  <div class="bg-theme w-100 h-9px"></div>
   <main>
     <section id="relation">
       <h2 class="text-center">
@@ -48,12 +47,15 @@
       <div class="my-5 figure-title">
         <span class="fs-5">Web版小説72話／アニメ1期終了時点までの相関図</span>
         <p class="ms-5 mt-1 fs-6">
-          ※拡大すると見やすいです。<br>
+          ※拡大すると見やすいです。（PCの方は「ファイルを開く」をお使い頂くと便利です。）<br>
           ※一部アニメ未登場キャラ含みます。</p>
       </div>
-      <div style="background: rgba(140,140,140,0.5);">
-        <img src="/img/relation/relation_anime1s.svg" style="width:100%;">
+      <div class="text-end">
+        <a class="btn btn-dark mb-3" href="/img/relation/relation_anime1s.svg">
+          <i class="bi-filetype-svg pe-1"></i>ファイルを開く
+        </a>
       </div>
+      <object class="w-100" type="image/svg+xml" data="/img/relation/relation_anime1s.svg"></object>
     </section>
   </main>
   <footer>
