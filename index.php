@@ -33,8 +33,8 @@
     </h1>
     <nav class="gnav">
       <ul>
-        <li class="gnav_item">トップページ</li>
-        <li class="gnav_item">キャラ相関図</li>
+        <a href="/"><li class="gnav_item">トップページ</li></a>
+        <a href="/relation/"><li class="gnav_item">キャラ相関図</li></a>
       </ul>
     </nav>
   </header>
