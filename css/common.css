@@ -35,13 +35,27 @@ h1 img{
 .gnav {
   width: 218px;
   height: 614px;
-  padding: 58px 22px 0 0;
+  padding: 58px 58px 0 0;
   background: url("/img/common/nav_bg.png") no-repeat;
   font-family: 'Kiwi Maru', serif;
   font-weight: 500;
 }
 .gnav ul{
+  padding-left: 0;
   list-style-type: none;
+}
+.gnav a{
+  display: block;
+  padding-left: 20px;
+  color: #3f3f3f;
+  text-decoration: none;
+}
+.gnav a:hover{
+  background: rgba(150,150,150,0.1);
+}
+.gnav a.active{
+  color: #4a55be;
+  background: rgba(150,150,150,0.1);
 }
 .gnav .gnav_item{
   line-height: 45px;

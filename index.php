@@ -33,7 +33,7 @@
     </h1>
     <nav class="gnav">
       <ul>
-        <a href="/"><li class="gnav_item">トップページ</li></a>
+        <a href="/" class="active"><li class="gnav_item">トップページ</li></a>
         <a href="/relation/"><li class="gnav_item">キャラ相関図</li></a>
       </ul>
     </nav>
@@ -51,11 +51,11 @@
         <tbody>
           <tr>
             <th>11月11日 11:11</th>
-            <td>「キャラ相関図」を更新しました。</td>
+            <td>「<a href="/relation/">キャラ相関図</a>」を更新しました。</td>
           </tr>
           <tr>
             <th>11月11日 11:11</th>
-            <td>「トップページ」を更新しました。</td>
+            <td>「<a href="/">トップページ</a>」を更新しました。</td>
           </tr>
         </tbody>
       </table>

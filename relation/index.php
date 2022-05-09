@@ -35,7 +35,7 @@
     <nav class="gnav">
       <ul>
         <a href="/"><li class="gnav_item">トップページ</li></a>
-        <a href="/relation/"><li class="gnav_item">キャラ相関図</li></a>
+        <a href="/relation/" class="active"><li class="gnav_item">キャラ相関図</li></a>
       </ul>
     </nav>
   </header>
