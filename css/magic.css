@@ -1,0 +1,61 @@
+.bg-m-fire{
+  background: rgb(214, 21, 21);
+}
+.bg-m-water{
+  background: rgb(28, 169, 204);
+}
+.bg-m-soil{
+  background: rgb(204, 114, 30);
+}
+.bg-m-wind{
+  background: rgb(20, 199, 29);
+}
+.bg-m-light{
+  background: rgb(224, 206, 39);
+}
+.bg-m-dark{
+  background: rgb(101, 66, 156);
+}
+.bg-m-person{
+  background: rgb(137, 193, 207);
+}
+
+.bg-media{
+  background: rgb(124, 124, 124);
+}
+
+.bg-nonactive{
+  background: rgb(240,240,240);
+}
+
+.magic_media::before{
+  content: '媒体';
+  padding-right: 0.5rem;
+  color: rgb(100, 100 ,100);
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+.magic_type::before{
+  content: '属性';
+  padding-right: 0.5rem;
+  color: rgb(100, 100 ,100);
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+#magic_list{
+  display:flex;
+  flex-wrap: wrap;
+}
+#magic_list > div.card{
+  display: block;
+  width: calc(25% - 12px);
+  margin: 6px;
+  padding: 1rem;
+}
+#magic_list > div.card:hover{
+  width: calc(25% - 4px);
+  margin: 2px;
+  padding: calc(1rem + 4px);
+  background: rgba(230,230,230,0.8);
+}
