@@ -29,19 +29,18 @@ if(!$pdo == null){
   $stmt->bindValue(':target_media', $target_media);
   $stmt->execute();
   $magicList = array();
-  
   foreach ($stmt as $row){
     // 配列の順
     // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明 
     $magicList[] = array(
       $row['id']
-      ,$row['netagard']
-      ,$row['media']
-      ,$row['name']
-      ,$row['type']
-      ,translateTypeJPtoEN($row['type'])
-      ,$row['chant']
-      ,$row['detail']
+      , $row['netagard']
+      , $row['media']
+      , $row['name']
+      , $row['type']
+      , translateTypeJPtoEN($row['type'])
+      , $row['chant']
+      , $row['detail']
     );
   }
 }?>
@@ -91,7 +90,43 @@ if(!$pdo == null){
       <h2 class="text-center">
         <span>魔法一覧</span>
       </h2>
-      <div id="magic_list">
+      <form class="d-flex flex-wrap border mx-5 mt-4 p-3 magic_search_box">
+        <div class="w-50 p-3 pb-0">
+          <div class="ps-1 pb-2 fw-bold">絞り込み検索</div>
+          <div class="input-group input-group mb-3">
+            <select name="target" class="w-auto input-group-text form-select text-start" aria-label="検索対象" style="padding-right:calc(0.75rem + 18px);font-size:0.9rem;">
+              <option value="all" selected>すべてから検索</option>
+              <option value="name">名称のみ検索</option>
+            </select>
+            <input name="search" type="text" class="w-auto form-control" placeholder="調べたい名前を入力" aria-label="検索文字列">
+            <select name="compare" class="w-auto input-group-text form-select border-start-0 text-start" aria-label="比較方法" style="padding-right:calc(0.75rem + 18px);font-size:0.9rem;">
+              <option value="like" selected>を含む</option>
+              <option value="equal">に一致</option>
+            </select>
+          </div>
+        </div>
+        <div class="w-50 p-3 pb-0">
+          <div class="ps-1 pb-2 fw-bold">並び順変更</div>
+          <div class="form-check form-check-inline">
+            <input name="order" class="form-check-input" type="radio" id="orderYomi" value="yomi" checked>
+            <label class="form-check-label" for="orderYomi">五十音順</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input name="order" class="form-check-input" type="radio" id="orderAppear" value="appear">
+            <label class="form-check-label" for="orderAppear">登場順</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input name="order" class="form-check-input" type="radio" id="orderType" value="type">
+            <label class="form-check-label" for="orderType">属性順</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mx-3 my-2">変更する</button>
+      </form>
+      <div class="border mx-5 mb-4 px-4 py-3 border-top-0 bg-nonactive text-muted fs-09"
+        >※未掲載魔法は順次掲載予定です。<br
+        >※召喚魔法は除いております。
+      </div>
+      <div id="magic_list" class="mt-5">
       <!-- (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明  -->
         <?php $count = count($magicList);
         for($i = 0; $i < $count; $i++){ ?>

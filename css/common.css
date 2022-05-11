@@ -18,6 +18,9 @@ h2,h3{
 .h-9px{
   height: 9px;
 }
+.fs-09{
+  font-size: 0.9rem;
+}
 
 .badge-costom{
   display: inline-block;

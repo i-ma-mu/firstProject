@@ -28,6 +28,10 @@
   background: rgb(240,240,240);
 }
 
+.magic_search_box .form-check-input{
+  margin-left: -1.3em;
+}
+
 .magic_media::before{
   content: '媒体';
   padding-right: 0.5rem;
