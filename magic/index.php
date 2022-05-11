@@ -22,11 +22,47 @@ function translateTypeJPtoEN($jp){
   };
 }
 $pdo = getPdo();
-$name = "a";
 if(!$pdo == null){
-  $target_media = "%w%";
-  $stmt = $pdo->prepare("SELECT * FROM isesuma_magic WHERE media LIKE :target_media ORDER BY name ");
-  $stmt->bindValue(':target_media', $target_media);
+  if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
+    $_POST['target'] = null;
+    $_POST['search'] = null;
+    $_POST['compare'] = null;
+    $_POST['order'] = null;
+  }
+  if(isset($_POST['search'])){
+    if($_POST['compare'] == "equal"){
+      $sql_compare = "=";
+    }else{
+      $sql_compare = "LIKE";
+    }
+    if($_POST['target'] == 'name'){
+      $sql = "SELECT * FROM isesuma_magic WHERE name " . $sql_compare . " :search";
+    }else{
+      $sql = "SELECT * FROM isesuma_magic WHERE name " . $sql_compare . " :search OR chant " . $sql_compare . " :search OR detail " . $sql_compare . " :search";
+    }
+  }else{
+    $sql = "SELECT * FROM isesuma_magic";
+  }
+  if(isset($_POST['order'])){
+    if($_POST['order'] == "yomi"){
+      $sql .= " ORDER BY name";
+    }else if($_POST['order'] == "appear"){
+      $sql .= " ORDER BY id";
+    }else if($_POST['order'] == "type"){
+      $sql .= " ORDER BY type, name";
+    }
+  }else{
+    $sql .= " ORDER BY name";
+  }
+  $stmt = $pdo->prepare($sql);
+  if(isset($_POST['search'])){
+    if($_POST['compare'] == "equal"){
+      $bindstr = $_POST['search'];
+    }else{
+      $bindstr = "%" . $_POST['search'] . "%";
+    }
+    $stmt->bindValue(':search', $bindstr);
+  }
   $stmt->execute();
   $magicList = array();
   foreach ($stmt as $row){
@@ -90,37 +126,54 @@ if(!$pdo == null){
       <h2 class="text-center">
         <span>魔法一覧</span>
       </h2>
-      <form class="d-flex flex-wrap border mx-5 mt-4 p-3 magic_search_box">
+      <form method="post" id="magic_search_box" class="d-flex flex-wrap border mx-5 mt-4 mb-0 p-3">
         <div class="w-50 p-3 pb-0">
           <div class="ps-1 pb-2 fw-bold">絞り込み検索</div>
           <div class="input-group input-group mb-3">
             <select name="target" class="w-auto input-group-text form-select text-start" aria-label="検索対象" style="padding-right:calc(0.75rem + 18px);font-size:0.9rem;">
-              <option value="all" selected>すべてから検索</option>
-              <option value="name">名称のみ検索</option>
+              <option value="all"<?php
+                if(!isset($_POST['target']) || $_POST['target'] == "all"){print " selected";};
+              ?>>すべてから検索</option>
+              <option value="name"<?php
+                if(isset($_POST['target']) && $_POST['target'] == "name"){print " selected";};
+              ?>>名称のみ検索</option>
             </select>
-            <input name="search" type="text" class="w-auto form-control" placeholder="調べたい名前を入力" aria-label="検索文字列">
+            <input name="search" type="text" class="w-auto form-control" placeholder="調べたい名前を入力" aria-label="検索文字列" value="<?php
+              if(isset($_POST['search'])){print $_POST['search'];};
+            ?>">
             <select name="compare" class="w-auto input-group-text form-select border-start-0 text-start" aria-label="比較方法" style="padding-right:calc(0.75rem + 18px);font-size:0.9rem;">
-              <option value="like" selected>を含む</option>
-              <option value="equal">に一致</option>
+              <option value="like"<?php
+                if(!isset($_POST['compare']) || $_POST['compare'] == "like"){print " selected";};
+              ?>>を含む</option>
+              <option value="equal"<?php
+                if(isset($_POST['compare']) && $_POST['compare'] == "equal"){print " selected";};
+              ?>>に一致</option>
             </select>
           </div>
         </div>
         <div class="w-50 p-3 pb-0">
           <div class="ps-1 pb-2 fw-bold">並び順変更</div>
           <div class="form-check form-check-inline">
-            <input name="order" class="form-check-input" type="radio" id="orderYomi" value="yomi" checked>
+            <input name="order" class="form-check-input" type="radio" id="orderYomi" value="yomi"<?php
+              if(!isset($_POST['order']) || $_POST['order'] == "yomi"){print " checked";};
+            ?>>
             <label class="form-check-label" for="orderYomi">五十音順</label>
           </div>
           <div class="form-check form-check-inline">
-            <input name="order" class="form-check-input" type="radio" id="orderAppear" value="appear">
+            <input name="order" class="form-check-input" type="radio" id="orderAppear" value="appear"<?php
+              if(isset($_POST['order']) && $_POST['order'] == "appear"){print " checked";};
+            ?>>
             <label class="form-check-label" for="orderAppear">登場順</label>
           </div>
           <div class="form-check form-check-inline">
-            <input name="order" class="form-check-input" type="radio" id="orderType" value="type">
+            <input name="order" class="form-check-input" type="radio" id="orderType" value="type"<?php
+              if(isset($_POST['order']) && $_POST['order'] == "type"){print " checked";};
+            ?>>
             <label class="form-check-label" for="orderType">属性順</label>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary mx-3 my-2">変更する</button>
+        <button type="submit" name="subtype" value="select" class="btn btn-primary ms-3 my-2">変更する</button>
+        <button type="submit" name="subtype" value="reset" class="btn btn-outline-primary mx-3 my-2">検索条件リセット</button>
       </form>
       <div class="border mx-5 mb-4 px-4 py-3 border-top-0 bg-nonactive text-muted fs-09"
         >※未掲載魔法は順次掲載予定です。<br

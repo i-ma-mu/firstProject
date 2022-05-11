@@ -28,7 +28,7 @@
   background: rgb(240,240,240);
 }
 
-.magic_search_box .form-check-input{
+#magic_search_box .form-check-input{
   margin-left: -1.3em;
 }
 
