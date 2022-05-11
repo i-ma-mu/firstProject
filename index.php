@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/top.css">
 <title>異世界はスマートフォンとともに。応援サイト</title>
+</head>
 <body>
   <header>
     <h1>

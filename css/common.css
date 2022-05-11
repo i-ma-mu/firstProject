@@ -9,6 +9,9 @@ h2,h3{
 .bg-theme{
   background: rgb(243, 170, 182);
 }
+.apply-hover:hover{
+  background: rgba(230,230,230,0.8);
+}
 .h-1px{
   height: 1px;
 }

@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/relation.css">
 <title>キャラクター相関図</title>
+</head>
 <body>
   <header>
     <h1>
