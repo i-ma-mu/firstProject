@@ -23,6 +23,10 @@ function translateTypeJPtoEN($jp){
 }
 $pdo = getPdo();
 if(!$pdo == null){
+  $TABLE_NAME = "isesuma_magic";
+  $SEARCH_TARGET = array("chant","detail");//name除く
+  $ORDER_BASENAME = "name";
+
   if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
     $_POST['target'] = null;
     $_POST['search'] = null;
@@ -36,20 +40,25 @@ if(!$pdo == null){
       $sql_compare = "LIKE";
     }
     if($_POST['target'] == 'name'){
-      $sql = "SELECT * FROM isesuma_magic WHERE name " . $sql_compare . " :search";
+      $sql = "SELECT * FROM " . $TABLE_NAME . " WHERE";
+      $sql .= " name " . $sql_compare . " :search";
     }else{
-      $sql = "SELECT * FROM isesuma_magic WHERE name " . $sql_compare . " :search OR chant " . $sql_compare . " :search OR detail " . $sql_compare . " :search";
+      $sql = "SELECT * FROM " . $TABLE_NAME . " WHERE";
+      $sql .= " name " . $sql_compare . " :search";
+      foreach($SEARCH_TARGET as $target){
+        $sql .= " OR " . $target . " " . $sql_compare . " :search";
+      }
     }
   }else{
-    $sql = "SELECT * FROM isesuma_magic";
+    $sql = "SELECT * FROM " . $TABLE_NAME;
   }
   if(isset($_POST['order'])){
     if($_POST['order'] == "yomi"){
-      $sql .= " ORDER BY name";
+      $sql .= " ORDER BY " . $ORDER_BASENAME;
     }else if($_POST['order'] == "appear"){
       $sql .= " ORDER BY id";
     }else if($_POST['order'] == "type"){
-      $sql .= " ORDER BY type, name";
+      $sql .= " ORDER BY type, " . $ORDER_BASENAME;
     }
   }else{
     $sql .= " ORDER BY name";
@@ -180,7 +189,7 @@ if(!$pdo == null){
         >※未掲載魔法は順次掲載予定です。<br
         >※召喚魔法は除いております。
       </div>
-      <div id="magic_list" class="mt-5">
+      <div id="modalList" class="mt-5">
       <!-- (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明  -->
         <?php $count = count($magicList);
         for($i = 0; $i < $count; $i++){ ?>
@@ -196,7 +205,7 @@ if(!$pdo == null){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body pb-4">
-                <div class="magic_media pb-2"
+                <div class="modalList_media pb-2"
                   <?php $mediaList = array(false, false, false, false, false);
                   foreach(explode(",", $magicList[$i][2]) as $exp_media){
                     switch($exp_media){
@@ -222,7 +231,7 @@ if(!$pdo == null){
                   ><span class="badge rounded-pill me-1 bg-<?php $mediaList[3] == true ? print "media" : print "nonactive" ?>">アニメ1期</span
                   ><span class="badge rounded-pill me-1 bg-<?php $mediaList[4] == true ? print "media" : print "nonactive" ?>">アニメ2期</span
                 ></div>
-                <div class="magic_type pb-2"
+                <div class="modalList_magicType pb-2"
                   <?php $typeList = array(false, false, false, false, false, false, false);
                   foreach(explode(",", $magicList[$i][4]) as $exp_media){
                     switch($exp_media){
@@ -256,7 +265,7 @@ if(!$pdo == null){
                   ><span class="badge rounded-pill p-2 me-1 bg-<?php $typeList[5] == true ? print "m-dark" : print "nonactive" ?>">闇</span
                   ><span class="badge rounded-pill p-2 me-1 bg-<?php $typeList[6] == true ? print "m-person" : print "nonactive" ?>">無</span
                 ></div><?php if($magicList[$i][6] != ""){ ?>
-                  <div class="magic_chant"><?=$magicList[$i][6]?></div><?php } ?>
+                  <div class="modalList_chant"><?=$magicList[$i][6]?></div><?php } ?>
                 <div class="row border-bottom mt-3 mb-4"></div>
                 <div class="px-4"><?=$magicList[$i][7]?></div>
               </div>

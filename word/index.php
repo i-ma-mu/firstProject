@@ -1,104 +1,73 @@
 <?php
 require_once('../env/pdo.php');
-function translateTypeJPtoEN($jp){
-  $typeByEN = array("fire","water","soil","wind","light","dark","person");
-  switch($jp){
-    case "火":
-      return $typeByEN[0];
-    case "水":
-      return $typeByEN[1];
-    case "土":
-      return $typeByEN[2];
-    case "風":
-      return $typeByEN[3];
-    case "光":
-      return $typeByEN[4];
-    case "闇":
-      return $typeByEN[5];
-    case "無":
-      return $typeByEN[6];
-    default:
-      return "未実装";
-  };
-}
 $pdo = getPdo();
-// if(!$pdo == null){
-//   if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
-//     $_POST['target'] = null;
-//     $_POST['search'] = null;
-//     $_POST['compare'] = null;
-//     $_POST['order'] = null;
-//   }
-//   if(isset($_POST['search'])){
-//     if($_POST['compare'] == "equal"){
-//       $sql_compare = "=";
-//     }else{
-//       $sql_compare = "LIKE";
-//     }
-//     if($_POST['target'] == 'name'){
-//       $sql = "SELECT * FROM isesuma_magic WHERE name " . $sql_compare . " :search";
-//     }else{
-//       $sql = "SELECT * FROM isesuma_magic WHERE name " . $sql_compare . " :search OR chant " . $sql_compare . " :search OR detail " . $sql_compare . " :search";
-//     }
-//   }else{
-//     $sql = "SELECT * FROM isesuma_magic";
-//   }
-//   if(isset($_POST['order'])){
-//     if($_POST['order'] == "yomi"){
-//       $sql .= " ORDER BY name";
-//     }else if($_POST['order'] == "appear"){
-//       $sql .= " ORDER BY id";
-//     }else if($_POST['order'] == "type"){
-//       $sql .= " ORDER BY type, name";
-//     }
-//   }else{
-//     $sql .= " ORDER BY name";
-//   }
-//   $stmt = $pdo->prepare($sql);
-//   if(isset($_POST['search'])){
-//     if($_POST['compare'] == "equal"){
-//       $bindstr = $_POST['search'];
-//     }else{
-//       $bindstr = "%" . $_POST['search'] . "%";
-//     }
-//     $stmt->bindValue(':search', $bindstr);
-//   }
-//   $stmt->execute();
-//   $magicList = array();
-//   foreach ($stmt as $row){
-//     // 配列の順
-//     // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明 
-//     $magicList[] = array(
-//       $row['id']
-//       , $row['netagard']
-//       , $row['media']
-//       , $row['name']
-//       , $row['type']
-//       , translateTypeJPtoEN($row['type'])
-//       , $row['chant']
-//       , $row['detail']
-//     );
-//   }
-// }
-$sql = "SELECT * FROM isesuma_word";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$wordList = array();
-foreach ($stmt as $row){
-  // 配列の順
-  // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)ルビ, (5)種別, (6)説明, (7)関連 
-  $wordList[] = array(
-    $row['id']
-    , $row['netagard']
-    , $row['media']
-    , $row['name']
-    , $row['ruby']
-    , $row['type']
-    , $row['detail']
-    , $row['relate']
-  );
-}
-?>
+if(!$pdo == null){
+  $TABLE_NAME = "isesuma_word";
+  $SEARCH_TARGET = array("ruby","detail");//name除く
+  $ORDER_BASENAME = "ruby";
+
+  if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
+    $_POST['target'] = null;
+    $_POST['search'] = null;
+    $_POST['compare'] = null;
+    $_POST['order'] = null;
+  }
+  if(isset($_POST['search'])){
+    if($_POST['compare'] == "equal"){
+      $sql_compare = "=";
+    }else{
+      $sql_compare = "LIKE";
+    }
+    if($_POST['target'] == 'name'){
+      $sql = "SELECT * FROM " . $TABLE_NAME . " WHERE";
+      $sql .= " name " . $sql_compare . " :search";
+    }else{
+      $sql = "SELECT * FROM " . $TABLE_NAME . " WHERE";
+      $sql .= " name " . $sql_compare . " :search";
+      foreach($SEARCH_TARGET as $target){
+        $sql .= " OR " . $target . " " . $sql_compare . " :search";
+      }
+    }
+  }else{
+    $sql = "SELECT * FROM " . $TABLE_NAME;
+  }
+  if(isset($_POST['order'])){
+    if($_POST['order'] == "yomi"){
+      $sql .= " ORDER BY " . $ORDER_BASENAME;
+    }else if($_POST['order'] == "appear"){
+      $sql .= " ORDER BY id";
+    }else if($_POST['order'] == "type"){
+      $sql .= " ORDER BY type, " . $ORDER_BASENAME;
+    }
+  }else{
+    $sql .= " ORDER BY name";
+  }
+  $stmt = $pdo->prepare($sql);
+  if(isset($_POST['search'])){
+    if($_POST['compare'] == "equal"){
+      $bindstr = $_POST['search'];
+    }else{
+      $bindstr = "%" . $_POST['search'] . "%";
+    }
+    $stmt->bindValue(':search', $bindstr);
+  }
+  $stmt->execute();
+  $wordList = array();
+  foreach ($stmt as $row){
+    // 配列の順
+    // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)ルビ, (5)種別, (6)説明, (7)関連 
+    $wordList[] = array(
+      $row['id']
+      , $row['netagard']
+      , $row['media']
+      , $row['name']
+      , $row['ruby']
+      , $row['type']
+      , $row['detail']
+      , $row['relate']
+    );
+  }
+}?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -109,7 +78,7 @@ foreach ($stmt as $row){
 <meta property="description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！ネタバレ防止機能付き">
 <meta property="og:site_name" content="異世界はスマートフォンとともに。応援サイト">
 <meta property="og:url" content="http://isesuma-data.com/">
-<meta property="og:title" content="魔法一覧 - 異世界はスマートフォンとともに。応援サイト">
+<meta property="og:title" content="用語一覧 - 異世界はスマートフォンとともに。応援サイト">
 <meta property="og:description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
 <meta property="og:type" content="website">
 <meta property="og:image" content="http://isesuma.vallaria.net/img/top/main_img.jpg">
@@ -146,7 +115,7 @@ foreach ($stmt as $row){
       <h2 class="text-center">
         <span>用語一覧</span>
       </h2>
-      <form method="post" id="magic_search_box" class="d-flex flex-wrap border mx-5 mt-4 mb-0 p-3">
+      <form method="post" id="modalList_search_box" class="d-flex flex-wrap border mx-5 mt-4 mb-0 p-3">
         <div class="w-50 p-3 pb-0">
           <div class="ps-1 pb-2 fw-bold">絞り込み検索</div>
           <div class="input-group input-group mb-3">
@@ -196,16 +165,15 @@ foreach ($stmt as $row){
         <button type="submit" name="subtype" value="reset" class="btn btn-outline-primary mx-3 my-2">検索条件リセット</button>
       </form>
       <div class="border mx-5 mb-4 px-4 py-3 border-top-0 bg-nonactive text-muted fs-09"
-        >※未掲載魔法は順次掲載予定です。<br
-        >※召喚魔法は除いております。
+        >※未掲載魔法は順次掲載予定です。
       </div>
-      <div id="magic_list" class="mt-5">
+      <div id="modalList" class="mt-5">
       <!-- (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)ルビ, (5)種別, (6)説明, (7)関連  -->
         <?php $count = count($wordList);
         for($i = 0; $i < $count; $i++){ ?>
         <div id="magicItem_<?=$wordList[$i][0]?>" class="card" data-bs-toggle="modal" data-bs-target="#magicBackdrop_<?=$wordList[$i][0]?>"
           ><span class="card-title fw-bold"><i class="bi-caret-right-fill pe-1"></i><?=$wordList[$i][3]?></span
-          ><span class="badge rounded-pill ms-1 bg-media"><?=$wordList[$i][5]?></span
+          <?php if($wordList[$i][5] != "一般"){ ?>><span class="badge rounded-pill ms-1 bg-media"><?=$wordList[$i][5]?></span<?php } ?>
         ></div>
         <div class="modal fade" id="magicBackdrop_<?=$wordList[$i][0]?>" data-bs-keyboard="true" tabindex="-1" aria-labelledby="magicBackdropLabel_<?=$wordList[$i][0]?>" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -215,8 +183,8 @@ foreach ($stmt as $row){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body pb-4"><?php if($wordList[$i][4] != ""){ ?>
-                <div class="magic_chant pb-2"><?=$wordList[$i][4]?></div><?php } ?>
-                <div class="magic_media"
+                <div class="modalList_ruby pb-2"><?=$wordList[$i][4]?></div><?php } ?>
+                <div class="modalList_media"
                   <?php $mediaList = array(false, false, false, false, false);
                   foreach(explode(",", $wordList[$i][2]) as $exp_media){
                     switch($exp_media){

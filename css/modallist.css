@@ -19,58 +19,56 @@
 .bg-m-person{
   background: rgb(137, 193, 207);
 }
-
 .bg-media{
   background: rgb(124, 124, 124);
 }
-
 .bg-nonactive{
   background: rgb(240,240,240);
 }
 
-#magic_search_box .form-check-input{
+#modaiList_search_box .form-check-input{
   margin-left: -1.3em;
 }
 
-.magic_media::before{
-  content: '媒体';
-  padding-right: 0.5rem;
-  color: rgb(100, 100 ,100);
-  font-size: 0.95rem;
-  font-weight: bold;
-}
-.magic_type::before{
-  content: '属性';
-  padding-right: 0.5rem;
-  color: rgb(100, 100 ,100);
-  font-size: 0.95rem;
-  font-weight: bold;
-}
-.magic_chant{
-  color: rgb(100, 100 ,100);
-  font-size: 0.95rem;
-}
-.magic_chant::before{
-  content: '詠唱';
-  padding-right: 0.5rem;
-  color: rgb(100, 100 ,100);
-  font-size: 0.95rem;
-  font-weight: bold;
-}
-
-#magic_list{
+#modalList{
   display:flex;
   flex-wrap: wrap;
 }
-#magic_list > div.card{
+#modalList > div.card{
   display: block;
   width: calc(100% / 3 - 12px);
   margin: 6px;
   padding: 1rem;
 }
-#magic_list > div.card:hover{
+#modalList > div.card:hover{
   width: calc(100% / 3 - 4px);
   margin: 2px;
   padding: calc(1rem + 4px);
   background: rgba(230,230,230,0.8);
+}
+
+.modalList_chant, .modalList_ruby{
+  color: rgb(100, 100 ,100);
+  font-size: 0.95rem;
+}
+.modalList_media::before
+, .modalList_magicType::before
+, .modalList_chant::before
+, .modalList_ruby::before{
+  padding-right: 0.5rem;
+  color: rgb(100, 100 ,100);
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+.modalList_media::before{
+  content: '媒体';
+}
+.modalList_magicType::before{
+  content: '属性';
+}
+.modalList_chant::before{
+  content: '詠唱';
+}
+.modalList_ruby::before{
+  content: '読み';
 }
