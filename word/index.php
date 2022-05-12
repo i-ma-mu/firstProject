@@ -1,73 +1,33 @@
 <?php
 require_once('../env/pdo.php');
-$pdo = getPdo();
-if(!$pdo == null){
-  $TABLE_NAME = "isesuma_word";
-  $SEARCH_TARGET = array("ruby","detail");//name除く
-  $ORDER_BASENAME = "ruby";
+require_once('../func/DBSelect.php');
 
-  if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
-    $_POST['target'] = null;
-    $_POST['search'] = null;
-    $_POST['compare'] = null;
-    $_POST['order'] = null;
-  }
-  if(isset($_POST['search'])){
-    if($_POST['compare'] == "equal"){
-      $sql_compare = "=";
-    }else{
-      $sql_compare = "LIKE";
-    }
-    if($_POST['target'] == 'name'){
-      $sql = "SELECT * FROM " . $TABLE_NAME . " WHERE";
-      $sql .= " name " . $sql_compare . " :search";
-    }else{
-      $sql = "SELECT * FROM " . $TABLE_NAME . " WHERE";
-      $sql .= " name " . $sql_compare . " :search";
-      foreach($SEARCH_TARGET as $target){
-        $sql .= " OR " . $target . " " . $sql_compare . " :search";
-      }
-    }
-  }else{
-    $sql = "SELECT * FROM " . $TABLE_NAME;
-  }
-  if(isset($_POST['order'])){
-    if($_POST['order'] == "yomi"){
-      $sql .= " ORDER BY " . $ORDER_BASENAME;
-    }else if($_POST['order'] == "appear"){
-      $sql .= " ORDER BY id";
-    }else if($_POST['order'] == "type"){
-      $sql .= " ORDER BY type, " . $ORDER_BASENAME;
-    }
-  }else{
-    $sql .= " ORDER BY name";
-  }
-  $stmt = $pdo->prepare($sql);
-  if(isset($_POST['search'])){
-    if($_POST['compare'] == "equal"){
-      $bindstr = $_POST['search'];
-    }else{
-      $bindstr = "%" . $_POST['search'] . "%";
-    }
-    $stmt->bindValue(':search', $bindstr);
-  }
-  $stmt->execute();
-  $wordList = array();
-  foreach ($stmt as $row){
-    // 配列の順
-    // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)ルビ, (5)種別, (6)説明, (7)関連 
-    $wordList[] = array(
-      $row['id']
-      , $row['netagard']
-      , $row['media']
-      , $row['name']
-      , $row['ruby']
-      , $row['type']
-      , $row['detail']
-      , $row['relate']
-    );
-  }
-}?>
+if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
+  $_POST['target'] = null;
+  $_POST['search'] = null;
+  $_POST['compare'] = null;
+  $_POST['order'] = null;
+}
+$TABLE_NAME = "isesuma_word";
+$SEARCH_TARGET_NAME = array("name","ruby");
+$SEARCH_TARGET_ALL = array("name","ruby","detail");
+$ORDER_BASENAME = "ruby";
+$resultSet = getDBresultSet($TABLE_NAME, $SEARCH_TARGET_NAME, $SEARCH_TARGET_ALL, $ORDER_BASENAME);
+$wordList = array();
+foreach ($resultSet as $row){
+  // 配列の順
+  // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)ルビ, (5)種別, (6)説明, (7)関連 
+  $wordList[] = array(
+    $row['id']
+    , $row['netagard']
+    , $row['media']
+    , $row['name']
+    , $row['ruby']
+    , $row['type']
+    , $row['detail']
+    , $row['relate']
+  );
+} ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
