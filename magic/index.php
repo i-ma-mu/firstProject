@@ -87,14 +87,14 @@ if(!$pdo == null){
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="format-detection" content="telephone=no,address=no,email=no">
-<meta property="description" content="異世界スマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！ネタバレ防止機能付き">
+<meta property="description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！ネタバレ防止機能付き">
 <meta property="og:site_name" content="異世界はスマートフォンとともに。応援サイト">
 <meta property="og:url" content="http://isesuma-data.com/">
-<meta property="og:title" content="キャラクター相関図 - 異世界はスマートフォンとともに。応援サイト">
-<meta property="og:description" content="イセスマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
+<meta property="og:title" content="魔法一覧 - 異世界はスマートフォンとともに。応援サイト">
+<meta property="og:description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
 <meta property="og:type" content="website">
 <meta property="og:image" content="http://isesuma.vallaria.net/img/top/main_img.jpg">
-<link rel="canonical" href="http://isesuma.vallaria.net/relation">
+<link rel="canonical" href="http://isesuma.vallaria.net/magic">
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -116,7 +116,8 @@ if(!$pdo == null){
     <nav class="gnav">
       <ul>
         <a href="/"><li class="gnav_item">トップページ</li></a>
-        <a href="/relation/" class="active"><li class="gnav_item">キャラ相関図</li></a>
+        <a href="/relation/"><li class="gnav_item">キャラ相関図</li></a>
+        <a href="/magic/" class="active"><li class="gnav_item">魔法一覧</li></a>
       </ul>
     </nav>
   </header>
@@ -183,7 +184,7 @@ if(!$pdo == null){
       <!-- (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明  -->
         <?php $count = count($magicList);
         for($i = 0; $i < $count; $i++){ ?>
-        <div class="card magicItem_<?=$magicList[$i][0]?>" data-bs-toggle="modal" data-bs-target="#magicBackdrop_<?=$magicList[$i][0]?>"
+        <div id="magicItem_<?=$magicList[$i][0]?>" class="card" data-bs-toggle="modal" data-bs-target="#magicBackdrop_<?=$magicList[$i][0]?>"
           ><span class="card-title fw-bold"><i class="bi-caret-right-fill pe-1"></i><?=$magicList[$i][3]?></span
           ><span class="badge rounded-pill ms-1 bg-m-<?=$magicList[$i][5]?>"><?=$magicList[$i][4]?>属性</span
         ></div>

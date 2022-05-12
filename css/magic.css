@@ -64,12 +64,12 @@
 }
 #magic_list > div.card{
   display: block;
-  width: calc(25% - 12px);
+  width: calc(100% / 3 - 12px);
   margin: 6px;
   padding: 1rem;
 }
 #magic_list > div.card:hover{
-  width: calc(25% - 4px);
+  width: calc(100% / 3 - 4px);
   margin: 2px;
   padding: calc(1rem + 4px);
   background: rgba(230,230,230,0.8);

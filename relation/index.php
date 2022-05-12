@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="format-detection" content="telephone=no,address=no,email=no">
-<meta property="description" content="異世界スマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！ネタバレ防止機能付き">
+<meta property="description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！ネタバレ防止機能付き">
 <meta property="og:site_name" content="異世界はスマートフォンとともに。応援サイト">
 <meta property="og:url" content="http://isesuma-data.com/">
 <meta property="og:title" content="キャラクター相関図 - 異世界はスマートフォンとともに。応援サイト">
-<meta property="og:description" content="イセスマホの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
+<meta property="og:description" content="イセスマの世界をまるごと解説！人気急上昇作品の世界もこれで丸わかり！">
 <meta property="og:type" content="website">
 <meta property="og:image" content="http://isesuma.vallaria.net/img/top/main_img.jpg">
 <link rel="canonical" href="http://isesuma.vallaria.net/relation">
@@ -34,6 +34,7 @@
       <ul>
         <a href="/"><li class="gnav_item">トップページ</li></a>
         <a href="/relation/" class="active"><li class="gnav_item">キャラ相関図</li></a>
+        <a href="/magic/"><li class="gnav_item">魔法一覧</li></a>
       </ul>
     </nav>
   </header>
