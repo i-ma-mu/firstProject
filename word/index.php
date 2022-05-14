@@ -76,11 +76,11 @@ foreach ($resultSet as $row){
       <h2 class="text-center">
         <span>用語一覧</span>
       </h2>
-      <form method="post" id="modalList_search_box" class="d-flex flex-wrap border mx-5 mt-4 mb-0 p-3">
-        <div class="w-50 p-3 pb-0">
-          <div class="ps-1 pb-2 fw-bold">絞り込み検索</div>
-          <div class="input-group input-group mb-3">
-            <select name="target" class="w-auto input-group-text form-select text-start" aria-label="検索対象" style="padding-right:calc(0.75rem + 18px);font-size:0.9rem;">
+      <form method="post" id="modalList_search_box" class="d-flex flex-wrap border mx-1 mx-md-5 mt-4 mb-0 p-3">
+        <div class="w-50 p-1 p-md-3 pb-0 pb-md-0">
+          <div class="ps-1 pb-1 pb-md-2 fw-bold">絞り込み検索</div>
+          <div class="input-group input-group mb-2 mb-md-3">
+            <select name="target" class="w-auto input-group-text form-select fs-09 text-start" aria-label="検索対象" style="padding-right:calc(0.75rem + 18px);">
               <option value="all"<?php
                 if(!isset($_POST['target']) || $_POST['target'] == "all"){print " selected";};
               ?>>すべてから検索</option>
@@ -91,7 +91,7 @@ foreach ($resultSet as $row){
             <input name="search" type="text" class="w-auto form-control" placeholder="調べたい名前を入力" aria-label="検索文字列" value="<?php
               if(isset($_POST['search'])){print $_POST['search'];};
             ?>">
-            <select name="compare" class="w-auto input-group-text form-select border-start-0 text-start" aria-label="比較方法" style="padding-right:calc(0.75rem + 18px);font-size:0.9rem;">
+            <select name="compare" class="w-auto input-group-text form-select border-start-0 fs-09 text-start" aria-label="比較方法" style="padding-right:calc(0.75rem + 18px)">
               <option value="like"<?php
                 if(!isset($_POST['compare']) || $_POST['compare'] == "like"){print " selected";};
               ?>>を含む</option>
@@ -101,8 +101,8 @@ foreach ($resultSet as $row){
             </select>
           </div>
         </div>
-        <div class="w-50 p-3 pb-0">
-          <div class="ps-1 pb-2 fw-bold">並び順変更</div>
+        <div class="w-50 p-1 p-md-3 ps-2 pb-0 pb-md-0">
+          <div class="ps-1 pb-1 pb-md-2 fw-bold">並び順変更</div>
           <div class="form-check form-check-inline">
             <input name="order" class="form-check-input" type="radio" id="orderYomi" value="yomi"<?php
               if(!isset($_POST['order']) || $_POST['order'] == "yomi"){print " checked";};
@@ -122,10 +122,10 @@ foreach ($resultSet as $row){
             <label class="form-check-label" for="orderType">属性順</label>
           </div>
         </div>
-        <button type="submit" name="subtype" value="select" class="btn btn-primary ms-3 my-2">変更する</button>
-        <button type="submit" name="subtype" value="reset" class="btn btn-outline-primary mx-3 my-2">検索条件リセット</button>
+        <button type="submit" name="subtype" value="select" class="btn btn-primary ms-1 ms-md-3 my-2 fs-09 fs-md-10">変更する</button>
+        <button type="submit" name="subtype" value="reset" class="btn btn-outline-primary ms-2 mx-ms-3 my-2 fs-09 fs-md-10">検索条件リセット</button>
       </form>
-      <div class="border mx-5 mb-4 px-4 py-3 border-top-0 bg-nonactive text-muted fs-09"
+      <div class="border mx-1 mx-md-5 mb-4 px-4 py-2 py-md-3 border-top-0 bg-nonactive text-muted fs-08 fs-md-09"
         >※未掲載魔法は順次掲載予定です。
       </div>
       <div id="modalList" class="mt-5">

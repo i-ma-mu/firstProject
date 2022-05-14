@@ -20,8 +20,14 @@ h2,h3{
 .h-9px{
   height: 9px;
 }
+.fs-08{
+  font-size: .8rem;
+}
 .fs-09{
-  font-size: 0.9rem;
+  font-size: .9rem;
+}
+.fs-10{
+  font-size: 1rem;
 }
 
 .badge-costom{
@@ -128,6 +134,15 @@ footer{
 @media (min-width:768px){
   html{
     font-size: 18px;
+  }
+  .fs-md-08{
+    font-size: .8rem;
+  }
+  .fs-md-09{
+    font-size: .9rem;
+  }
+  .fs-md-10{
+    font-size: 1rem;
   }
   
   header{

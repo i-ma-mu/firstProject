@@ -36,12 +36,12 @@
 }
 #modalList > div.card{
   display: block;
-  width: calc(100% / 3 - 12px);
+  width: calc(100% - 12px);
   margin: 6px;
   padding: 1rem;
 }
 #modalList > div.card:hover{
-  width: calc(100% / 3 - 4px);
+  width: calc(100% - 4px);
   margin: 2px;
   padding: calc(1rem + 4px);
   background: rgba(230,230,230,0.8);
@@ -71,4 +71,21 @@
 }
 .modalList_ruby::before{
   content: '読み';
+}
+
+@media (min-width: 768px){
+  #modalList > div.card{
+    width: calc(100% / 2 - 12px);
+  }
+  #modalList > div.card:hover{
+    width: calc(100% / 2 - 4px);
+  }
+}
+@media (min-width: 1500px){
+  #modalList > div.card{
+    width: calc(100% / 3 - 12px);
+  }
+  #modalList > div.card:hover{
+    width: calc(100% / 3 - 4px);
+  }
 }
