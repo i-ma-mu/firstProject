@@ -57,16 +57,17 @@ foreach ($resultSet as $row){
 <title>用語一覧</title>
 </head>
 <body>
-  <header>
+<header>
     <h1>
       <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
     </h1>
-    <nav class="gnav">
-      <ul>
-        <a href="/"><li class="gnav_item">トップページ</li></a>
-        <a href="/relation/"><li class="gnav_item">キャラ相関図</li></a>
-        <a href="/magic/" class="active"><li class="gnav_item">魔法一覧</li></a>
-      </ul>
+    <nav id="gnav">
+      <ul
+        ><a href="/"><li>トップページ</li></a
+        ><a href="/relation/"><li>キャラ相関図</li></a
+        ><a href="/magic/"><li>魔法一覧</li></a
+        ><a href="/word/" class="active"><li>用語一覧</li></a
+      ></ul>
     </nav>
   </header>
   <div class="bg-theme w-100 h-9px"></div>
