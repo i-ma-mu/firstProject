@@ -35,20 +35,72 @@ $SEARCH_TARGET_ALL = array("name","chant","detail");
 $ORDER_BASENAME = "name";
 $resultSet = getDBresultSet($TABLE_NAME, $SEARCH_TARGET_NAME, $SEARCH_TARGET_ALL, $ORDER_BASENAME, $_POST);
 $magicList = array();
+
+//$VALUE_NETAGARD = $_SESSION['netagard'];
+$VALUE_NETAGARD = 10;
+
 foreach ($resultSet as $row){
+  $ISNETABARE = false;
+  $target_num = 0;
+  $rs_netagard = 0;
+  $rs_name = "";
+  $rs_detail = "";
   // 配列の順
   // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明 
+  $netaArray = explode("|", $row['netagard']);
+  if(count($netaArray) == 1){
+    if(intval($netaArray[0]) <= $VALUE_NETAGARD){
+      $rs_netagard = $netaArray[0];
+    }else{
+      $ISNETABARE = true;
+    }
+  }else{
+    for($i = 0; $i < count($netaArray); $i++){
+      if(intval($netaArray[$i]) <= $VALUE_NETAGARD){
+        $target_num = $i;
+        $rs_netagard = intval($netaArray[$i]);
+      }else{
+        if($i == 0){
+          $ISNETABARE = true;
+        }
+        break;
+      }
+    }
+  }
+  if($ISNETABARE){
+    continue;
+  }
+  $nameArray = explode("|", $row['name']);
+  if(count($nameArray) == 1){
+    $rs_name = $nameArray[0];
+  }else{
+    $count = 0;
+    do{
+      $rs_name = $nameArray[$target_num - $count];
+      $count++;
+    }while($rs_name == "");
+  }
+  $detailArray = explode("|", $row['detail']);
+  if(count($detailArray) == 1){
+    $rs_detail = $detailArray[0];
+  }else{
+    $count = 0;
+    do{
+      $rs_detail = $detailArray[$target_num - $count];
+      $count++;
+    }while($rs_detail == "");
+  }
   $magicList[] = array(
     $row['id']
-    , $row['netagard']
+    , $rs_netagard
     , $row['media']
-    , $row['name']
+    , $rs_name
     , $row['type']
     , translateTypeJPtoEN($row['type'])
     , $row['chant']
-    , $row['detail']
+    , $rs_detail
   );
-}?>
+} ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
