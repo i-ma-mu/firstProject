@@ -103,48 +103,89 @@ function printNetaModal($VALUE_NETAGARD){ ?>
     let trans_ctw = 0;
     let trans_atw = 0;
     function refrectToWeb(){
-      if(trans_w || trans_ltw > 0 || trans_ctw > 0 || trans_atw){
+      if(trans_w >= 0 || trans_ltw >= 0 || trans_ctw >= 0 || trans_atw >= 0){
         const neta = Math.max(trans_w, trans_ltw, trans_ctw, trans_atw);
-        document.querySelector('#netaValue').textContent = "原作" + neta + "話相当へ";
-        document.querySelector('[name="netagard"]').value = neta;
-        document.querySelector('#submitNetModal').disabled = false;
+        if(neta > 0){
+          document.querySelector('#netaValue').textContent = "原作" + neta + "話相当へ";
+          document.querySelector('[name="netagard"]').value = neta;
+          document.querySelector('#submitNetModal').disabled = false;
+        }else{
+          document.querySelector('#netaValue').textContent = "";
+          document.querySelector('[name="netagard"]').value = 0;
+          document.querySelector('#submitNetModal').disabled = true;
+        }
       }
     }
     //原作
     const netaWElement = document.querySelector('.neta-web');
     netaWElement.addEventListener('change', (event) => {
       trans_w = parseFloat(`${event.target.value}`);
-      if(trans_w > 0){
+      if(trans_w >= 0 && trans_w <= 600){
         refrectToWeb();
       }
     });
-    //ラノベ変換
-    const netaLElement = document.querySelector('.neta-lightnovel');
-    netaLElement.addEventListener('change', (event) => {
-      const result = document.querySelector('#neta-l-trans');
-      let target = `${event.target.value}`;
-      switch(parseFloat(target)){
-        case 1:
-          trans_ltw = 10;
-          break;
-        default:
-          trans_ltw = 1;
-      }
-      if(trans_ltw > 0){
-        result.textContent = "（原作" + trans_ltw + "話相当）";
-        refrectToWeb();
-      }
-    });
+    //ラノベ変換(一時停止中)
+    let netaLElement = document.querySelector('.neta-lightnovel');
+    netaLElement.disabled = true;
+    // netaLElement.addEventListener('change', (event) => {
+    //   const result = document.querySelector('#neta-l-trans');
+    //   let target = `${event.target.value}`;
+    //   switch(parseFloat(target)){
+    //     case 1:
+    //       trans_ltw = 10;
+    //       break;
+    //     default:
+    //       trans_ltw = 1;
+    //   }
+    //   if(trans_ltw >= 0){
+    //     result.textContent = "（原作" + trans_ltw + "話相当）";
+    //     refrectToWeb();
+    //   }
+    // });
     //コミック変換
     const netaCElement = document.querySelector('.neta-comic');
     netaCElement.addEventListener('change', (event) => {
       const result = document.querySelector('#neta-c-trans');
       let target = `${event.target.value}`;
       switch(parseFloat(target)){
-        default:
-          trans_ctw = 20;
+        case 0:
+          trans_ctw = 0;
+          break;
+        case 1:
+          trans_ctw = 15;
+          break;
+        case 2:
+          trans_ctw = 25;
+          break;
+        case 3:
+          trans_ctw = 31;
+          break;
+        case 4:
+          trans_ctw = 42;
+          break;
+        case 5:
+          trans_ctw = 54;
+          break;
+        case 6:
+          trans_ctw = 66;
+          break;
+        case 7:
+          trans_ctw = 81;
+          break;
+        case 8:
+          trans_ctw = 93;
+          break;
+        case 9:
+          trans_ctw = 103;
+          break;
+        case 10:
+          trans_ctw = 119;
+          break;
+        case 11:
+          trans_ctw = 129;
+          break;
       }
-      if(trans_ctw > 0){
+      if(trans_ctw >= 0 && trans_ctw <= 129){
         result.textContent = "（原作" + trans_ctw + "話相当）";
         refrectToWeb();
       }
@@ -158,19 +199,50 @@ function printNetaModal($VALUE_NETAGARD){ ?>
       const result = document.querySelector('#neta-a-trans');
       if(neta_as_target == 1){
         switch(neta_ae_target){
-          case 2:
-            trans_atw = 15;
+          case 1:
+            trans_atw = 10;
             break;
-          default:
+          case 2:
+            trans_atw = 17;
+            break;
+          case 3:
+            trans_atw = 23;
+            break;
+          case 4:
+            trans_atw = 30;
+            break;
+          case 5:
+            trans_atw = 33;
+            break;
+          case 6:
+            trans_atw = 41;
+            break;
+          case 7:
+            trans_atw = 48;
+            break;
+          case 8:
+            trans_atw = 54;
+            break;
+          case 9:
             trans_atw = 60;
+            break;
+          case 10:
+            trans_atw = 64;
+            break;
+          case 11:
+            trans_atw = 66;
+            break;
+          case 12:
+            trans_atw = 71;
+            break;
         }
       }else if(neta_as_target == 2){
         switch(neta_ae_target){
           default:
-            trans_atw = 2;
+            trans_atw = -1;
         }
       }
-      if(trans_atw > 0){
+      if(trans_atw >= 0 && trans_atw <= 71){
         result.textContent = "（原作" + trans_atw + "話相当）";
         refrectToWeb();
       }
