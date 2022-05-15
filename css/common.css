@@ -42,6 +42,7 @@ h2,h3{
 }
 
 header{
+  position: relative;
   background-color: rgb(243, 170, 182);
 }
 h1{
@@ -49,7 +50,7 @@ h1{
   padding: .3rem 0 .15rem 1rem;
 }
 h1 img{
-  width: 45%;
+  height: 45px;
 }
 #gnav{
   font-family: 'Kiwi Maru', serif;
@@ -111,6 +112,47 @@ h1 img{
 }
 #gnav ul a:nth-of-type(5) li::before{
   content: "\f194";
+}
+
+.showNetaModal{
+  position: absolute;
+  top: .35rem;
+  right: 5px;
+  width: auto;
+  height: 40px;
+  padding: 0px 10px;
+}
+
+#netaModal .modal-content{
+  border: 5px solid rgb(109, 109, 109);
+}
+#netaModal .modal-content > *{
+  background: rgba(243, 170, 182, 0.3);
+}
+#netaModal .modal-header{
+  border-bottom: none;
+}
+#netaModal .modal-body{
+  padding: 0 1.5rem 1rem 1.5rem;
+}
+#netaModal .modal-body .alert{
+  padding: .5rem;
+}
+#netaModal_setTable tr th{
+  width: 40%;
+  padding-top: .5rem;
+  font-size: .8rem;
+  text-align: center;
+}
+#netaModal_setTable tr td{
+  width: 60%;
+  padding-top: .5rem;
+}
+#netaModal .form-control,#netaModal .input-group-text{
+  font-size: .8rem;
+}
+#netaModal_setTable tr td:nth-of-type(2){
+  display: none;
 }
 
 main{
@@ -204,9 +246,36 @@ footer{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  main{
-    background: #fff;
+
+  .showNetaModal{
+    position: relative;
+    width: 160px;
+    height: auto;
+    margin-left: 20px;
+    padding: .375rem .75rem;
+  }
+
+  #netaModal .modal-header{
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+  }
+  #netaModal .modal-body{
+    padding: 1rem 1.5rem 1rem 1.5rem;
+  }
+  #netaModal .modal-body .alert{
+    padding: 1rem;
+  }
+  #netaModal_setTable tr th{
+    width: 10rem;
+    font-size: 1rem;
+  }
+  #netaModal_setTable tr td{
+    width: 15rem;
+  }
+  #netaModal .form-control,#netaModal .input-group-text{
+    font-size: 1rem;
+  }
+  #netaModal_setTable tr td:nth-of-type(2){
+    display: table-cell;
   }
   
   section{
@@ -214,12 +283,8 @@ footer{
   }
   
   footer{
-    width: 100%;
     padding: 20px 0;
-    color: rgb(220, 220, 220);
     font-size: .75rem;
-    text-align: center;
-    background: #616161;
   }
 }
 

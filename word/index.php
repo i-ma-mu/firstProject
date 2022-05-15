@@ -1,7 +1,10 @@
 <?php
+require_once('../func/Netagard.php');
+require_once('../func/Basecode.php');
 require_once('../env/pdo.php');
 require_once('../func/DBSelect.php');
-
+$PAGE_NAME = "/word/";
+$VALUE_NETAGARD = getValueNetagard();
 if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
   $_POST['target'] = null;
   $_POST['search'] = null;
@@ -14,10 +17,6 @@ $SEARCH_TARGET_ALL = array("name","ruby","detail");
 $ORDER_BASENAME = "ruby";
 $resultSet = getDBresultSet($TABLE_NAME, $SEARCH_TARGET_NAME, $SEARCH_TARGET_ALL, $ORDER_BASENAME);
 $wordList = array();
-
-//$VALUE_NETAGARD = $_SESSION['netagard'];
-$VALUE_NETAGARD = 10;
-
 foreach ($resultSet as $row){
   $ISNETABARE = false;
   $target_num = 0;
@@ -120,19 +119,7 @@ foreach ($resultSet as $row){
 <title>用語一覧</title>
 </head>
 <body>
-<header>
-    <h1>
-      <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
-    </h1>
-    <nav id="gnav">
-      <ul
-        ><a href="/"><li>トップページ</li></a
-        ><a href="/relation/"><li>キャラ相関図</li></a
-        ><a href="/magic/"><li>魔法一覧</li></a
-        ><a href="/word/" class="active"><li>用語一覧</li></a
-      ></ul>
-    </nav>
-  </header>
+<?php printHeader($PAGE_NAME,$VALUE_NETAGARD) ?>
   <div class="bg-theme w-100 h-9px"></div>
   <main>
     <section id="word">

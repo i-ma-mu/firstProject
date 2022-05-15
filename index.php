@@ -1,3 +1,9 @@
+<?php
+require_once('./func/Netagard.php');
+require_once('./func/Basecode.php');
+$PAGE_NAME = "/";
+$VALUE_NETAGARD = getValueNetagard();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,9 +22,6 @@
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <!-- googleFont -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,19 +33,7 @@
 <title>異世界はスマートフォンとともに。応援サイト</title>
 </head>
 <body>
-  <header>
-    <h1>
-      <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
-    </h1>
-    <nav id="gnav">
-      <ul
-        ><a href="/" class="active"><li>トップページ</li></a
-        ><a href="/relation/"><li>キャラ相関図</li></a
-        ><a href="/magic/"><li>魔法一覧</li></a
-        ><a href="/word/"><li>用語一覧</li></a
-      ></ul>
-    </nav>
-  </header>
+<?php printHeader($PAGE_NAME,$VALUE_NETAGARD); ?>
   <main>
     <section id="topBar" class="fs-4">異世界はスマートフォンとともに。応援サイト</section>
     <section id="topImg">
@@ -54,6 +45,10 @@
       </h3>
       <table id="news_table" class="table my-4">
         <tbody>
+          <tr>
+            <th>2022年5月15日 23:30</th>
+            <td>ネタバレ防止機能の追加</td>
+          </tr>
           <tr>
             <th>2022年5月14日 19:00</th>
             <td>スマートフォン向けのデザインを追加しました。</td>

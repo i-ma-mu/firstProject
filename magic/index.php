@@ -1,4 +1,6 @@
 <?php
+require_once('../func/Netagard.php');
+require_once('../func/Basecode.php');
 require_once('../env/pdo.php');
 require_once('../func/DBSelect.php');
 function translateTypeJPtoEN($jp){
@@ -22,7 +24,8 @@ function translateTypeJPtoEN($jp){
       return "未実装";
   };
 }
-
+$PAGE_NAME = "/magic/";
+$VALUE_NETAGARD = getValueNetagard();
 if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
   $_POST['target'] = null;
   $_POST['search'] = null;
@@ -35,10 +38,6 @@ $SEARCH_TARGET_ALL = array("name","chant","detail");
 $ORDER_BASENAME = "name";
 $resultSet = getDBresultSet($TABLE_NAME, $SEARCH_TARGET_NAME, $SEARCH_TARGET_ALL, $ORDER_BASENAME, $_POST);
 $magicList = array();
-
-//$VALUE_NETAGARD = $_SESSION['netagard'];
-$VALUE_NETAGARD = 10;
-
 foreach ($resultSet as $row){
   $ISNETABARE = false;
   $target_num = 0;
@@ -128,21 +127,9 @@ foreach ($resultSet as $row){
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/modallist.css">
 <title>魔法一覧</title>
-</head> 
+</head>
 <body>
-  <header>
-    <h1>
-      <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
-    </h1>
-    <nav id="gnav">
-      <ul
-        ><a href="/"><li>トップページ</li></a
-        ><a href="/relation/"><li>キャラ相関図</li></a
-        ><a href="/magic/" class="active"><li>魔法一覧</li></a
-        ><a href="/word/"><li>用語一覧</li></a
-      ></ul>
-    </nav>
-  </header>
+<?php printHeader($PAGE_NAME,$VALUE_NETAGARD) ?>
   <div class="bg-theme w-100 h-9px"></div>
   <main>
     <section id="magic">
@@ -152,7 +139,7 @@ foreach ($resultSet as $row){
       <form method="post" id="magic_search_box" class="d-flex flex-wrap border mx-1 mx-md-5 mt-4 mb-0 p-3">
         <div class="w-50 p-1 p-md-3 pb-0 pb-md-0">
           <div class="ps-1 pb-1 pb-md-2 fw-bold">絞り込み検索</div>
-          <div class="input-group input-group mb-2 mb-md-3">
+          <div class="input-group mb-2 mb-md-3">
             <select name="target" class="w-auto input-group-text form-select fs-09 text-start" aria-label="検索対象" style="padding-right:calc(0.75rem + 18px);">
               <option value="all"<?php
                 if(!isset($_POST['target']) || $_POST['target'] == "all"){print " selected";};

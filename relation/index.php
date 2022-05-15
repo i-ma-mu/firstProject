@@ -1,3 +1,9 @@
+<?php
+require_once('../func/Netagard.php');
+require_once('../func/Basecode.php');
+$PAGE_NAME = "/relation/";
+$VALUE_NETAGARD = getValueNetagard();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,6 +21,7 @@
 <link rel="canonical" href="http://isesuma.vallaria.net/relation">
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <!-- googleFont -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,19 +33,7 @@
 <title>キャラクター相関図</title>
 </head>
 <body>
-  <header>
-    <h1>
-      <img src="/img/common/logo.png" alt="異世界はスマートフォンとともに。応援サイト">
-    </h1>
-    <nav id="gnav">
-      <ul
-        ><a href="/"><li>トップページ</li></a
-        ><a href="/relation/" class="active"><li>キャラ相関図</li></a
-        ><a href="/magic/"><li>魔法一覧</li></a
-        ><a href="/word/"><li>用語一覧</li></a
-      ></ul>
-    </nav>
-  </header>
+<?php printHeader($PAGE_NAME,$VALUE_NETAGARD) ?>
   <div class="bg-theme w-100 h-9px"></div>
   <main>
     <section id="relation">
