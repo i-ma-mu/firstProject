@@ -33,10 +33,9 @@ if(isset($_POST['subtype']) && $_POST['subtype'] == "reset"){
   $_POST['order'] = null;
 }
 $TABLE_NAME = "isesuma_magic";
-$SEARCH_TARGET_NAME = array("name");
-$SEARCH_TARGET_ALL = array("name","chant","detail");
-$ORDER_BASENAME = "name";
-$resultSet = getDBresultSet($TABLE_NAME, $SEARCH_TARGET_NAME, $SEARCH_TARGET_ALL, $ORDER_BASENAME, $_POST);
+$resultSet = getDBresultSet($TABLE_NAME);
+
+//データ確定
 $magicList = array();
 foreach ($resultSet as $row){
   $ISNETABARE = false;
@@ -44,8 +43,7 @@ foreach ($resultSet as $row){
   $rs_netagard = 0;
   $rs_name = "";
   $rs_detail = "";
-  // 配列の順
-  // (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明 
+
   $netaArray = explode("|", $row['netagard']);
   if(count($netaArray) == 1){
     if(intval($netaArray[0]) <= $VALUE_NETAGARD){
@@ -89,16 +87,68 @@ foreach ($resultSet as $row){
       $count++;
     }while($rs_detail == "");
   }
+  // 配列の順
+  // (id)識別ID, (netagard)表示制限, (media)登場媒体, (name)名前, (type)属性, (typeEN)属性英語名, (chant)詠唱, (detail)説明 
   $magicList[] = array(
-    $row['id']
-    , $rs_netagard
-    , $row['media']
-    , $rs_name
-    , $row['type']
-    , translateTypeJPtoEN($row['type'])
-    , $row['chant']
-    , $rs_detail
+    "id" => $row['id']
+    , "firstAppear" => $rs_netagard
+    , "netagard" => $rs_netagard
+    , "media" => $row['media']
+    , "name" => $rs_name
+    , "type" => $row['type']
+    , "typeEN" => translateTypeJPtoEN($row['type'])
+    , "chant" => $row['chant']
+    , "detail" => $rs_detail
   );
+}
+
+//絞り込み
+//$_POST['search'] -> 文字列
+//$_POST['target'] -> 検索対象
+//$_POST['compare'] -> 比較方法
+if(isset($_POST['search']) && $_POST['search'] != ""){
+  if(isset($_POST['target']) && $_POST['target'] == "name"){
+    $searchName = array("name");
+  }else{
+    $searchName = array("name","chant","detail");
+  }
+  if(isset($_POST['compare']) && $_POST['compare'] == "equal"){
+    $searchValue = "/^" . $_POST['search'] . "$/";
+  }else{
+    $searchValue = "/" . $_POST['search'] . "/";
+  }
+  $listCount = count($magicList);
+  for($uj = 0; $uj < $listCount; $uj++){
+    $flagMatch = false;
+    foreach($searchName as $t){
+      if(preg_match($searchValue, $magicList[$uj][$t])){
+        $flagMatch = true;
+        break;
+      }
+    }
+    if(!$flagMatch){
+      unset($magicList[$uj]);
+    }
+  }
+}
+$listCount = count($magicList);
+if($listCount != 0){
+  $magicList = array_values($magicList);
+}
+
+//並び替え
+$orderName = "name";
+if(isset($_POST['order'])){
+  if($_POST['order'] == "yomi"){
+    $orderName = "name";
+  }else if($_POST['order'] == "appear"){
+    $orderName = "firstAppear";
+  }else if($_POST['order'] == "type"){
+    $orderName = "type";
+  }
+}
+if($listCount != 0){
+  quickSort($magicList, $orderName, 0, count($magicList)-1);
 } ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -190,24 +240,24 @@ foreach ($resultSet as $row){
         >※召喚魔法は除いております。
       </div>
       <div id="modalList" class="mt-5">
-      <!-- (0)識別ID, (1)表示制限, (2)登場媒体, (3)名前, (4)属性, (5)属性英語名, (6)詠唱, (7)説明  -->
+      <!-- (id)識別ID, (netagard)表示制限, (media)登場媒体, (name)名前, (type)属性, (typeEN)属性英語名, (chant)詠唱, (detail)説明 -->
         <?php $count = count($magicList);
         for($i = 0; $i < $count; $i++){ ?>
-        <div id="magicItem_<?=$magicList[$i][0]?>" class="card" data-bs-toggle="modal" data-bs-target="#magicBackdrop_<?=$magicList[$i][0]?>"
-          ><span class="card-title fw-bold"><i class="bi-caret-right-fill pe-1"></i><?=$magicList[$i][3]?></span
-          ><span class="badge rounded-pill ms-1 bg-m-<?=$magicList[$i][5]?>"><?=$magicList[$i][4]?>属性</span
+        <div id="magicItem_<?=$magicList[$i]["id"]?>" class="card" data-bs-toggle="modal" data-bs-target="#magicBackdrop_<?=$magicList[$i]["id"]?>"
+          ><span class="card-title fw-bold"><i class="bi-caret-right-fill pe-1"></i><?=$magicList[$i]["name"]?></span
+          ><span class="badge rounded-pill ms-1 bg-m-<?=$magicList[$i]["typeEN"]?>"><?=$magicList[$i]["type"]?>属性</span
         ></div>
-        <div class="modal fade" id="magicBackdrop_<?=$magicList[$i][0]?>" data-bs-keyboard="true" tabindex="-1" aria-labelledby="magicBackdropLabel_<?=$magicList[$i][0]?>" aria-hidden="true">
+        <div class="modal fade" id="magicBackdrop_<?=$magicList[$i]["id"]?>" data-bs-keyboard="true" tabindex="-1" aria-labelledby="magicBackdropLabel_<?=$magicList[$i]["name"]?>" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title ps-2 pt-1 fs-4 fw-bold" id="magicBackdropLabel_<?=$magicList[$i][0]?>"><?=$magicList[$i][3]?></h5>
+                <h5 class="modal-title ps-2 pt-1 fs-4 fw-bold" id="magicBackdropLabel_<?=$magicList[$i]["id"]?>"><?=$magicList[$i]["name"]?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body pb-4">
                 <div class="modalList_media pb-2"
                   <?php $mediaList = array(false, false, false, false, false);
-                  foreach(explode(",", $magicList[$i][2]) as $exp_media){
+                  foreach(explode(",", $magicList[$i]["media"]) as $exp_media){
                     switch($exp_media){
                       case "w":
                         $mediaList[0] = true;
@@ -233,7 +283,7 @@ foreach ($resultSet as $row){
                 ></div>
                 <div class="modalList_magicType pb-2"
                   <?php $typeList = array(false, false, false, false, false, false, false);
-                  foreach(explode(",", $magicList[$i][4]) as $exp_media){
+                  foreach(explode(",", $magicList[$i]["type"]) as $exp_media){
                     switch($exp_media){
                       case "火":
                         $typeList[0] = true;
@@ -264,14 +314,14 @@ foreach ($resultSet as $row){
                   ><span class="badge rounded-pill p-2 me-1 bg-<?php $typeList[4] == true ? print "m-light" : print "nonactive" ?>">光</span
                   ><span class="badge rounded-pill p-2 me-1 bg-<?php $typeList[5] == true ? print "m-dark" : print "nonactive" ?>">闇</span
                   ><span class="badge rounded-pill p-2 me-1 bg-<?php $typeList[6] == true ? print "m-person" : print "nonactive" ?>">無</span
-                ></div><?php if($magicList[$i][6] != ""){ ?>
-                  <div class="modalList_chant"><?=$magicList[$i][6]?></div><?php } ?>
+                ></div><?php if($magicList[$i]["chant"] != ""){ ?>
+                  <div class="modalList_chant"><?=$magicList[$i]["chant"]?></div><?php } ?>
                 <div class="row border-bottom mt-3 mb-4"></div>
-                <div class="px-4"><?=$magicList[$i][7]?></div>
+                <div class="px-4"><?=$magicList[$i]["detail"]?></div>
               </div>
               <div class="modal-footer text-muted">
-                <?php if($i != 0){ ?><a style="font-size:0.95rem;" class="btn btn-outline-secondary ps-1 pe-3 py-1 me-2" data-bs-toggle="modal" data-bs-dismiss="modal" href="#magicBackdrop_<?=$magicList[$i-1][0]?>"><i class="bi-chevron-left pe-2"></i><?=$magicList[$i-1][3]?></a><?php } ?>
-                <?php if($i != $count - 1){ ?><a style="font-size:0.95rem;" class="btn btn-outline-secondary ps-3 pe-1 py-1" data-bs-toggle="modal" data-bs-dismiss="modal" href="#magicBackdrop_<?=$magicList[$i+1][0]?>"><?=$magicList[$i+1][3]?><i class="bi-chevron-right ps-2"></i></a><?php } ?>
+                <?php if($i != 0){ ?><a style="font-size:0.95rem;" class="btn btn-outline-secondary ps-1 pe-3 py-1 me-2" data-bs-toggle="modal" data-bs-dismiss="modal" href="#magicBackdrop_<?=$magicList[$i-1]["id"]?>"><i class="bi-chevron-left pe-2"></i><?=$magicList[$i-1]["name"]?></a><?php } ?>
+                <?php if($i != $count - 1){ ?><a style="font-size:0.95rem;" class="btn btn-outline-secondary ps-3 pe-1 py-1" data-bs-toggle="modal" data-bs-dismiss="modal" href="#magicBackdrop_<?=$magicList[$i+1]["id"]?>"><?=$magicList[$i+1]["name"]?><i class="bi-chevron-right ps-2"></i></a><?php } ?>
               </div>
             </div>
           </div>
