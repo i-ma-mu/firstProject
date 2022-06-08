@@ -156,6 +156,7 @@ h1 img{
 }
 
 main{
+  min-height: calc(100vh - 30px);
   background: #fff;
 }
 
@@ -164,12 +165,18 @@ section{
 }
 
 footer{
+  position: relative;
   width: 100%;
-  padding: 10px 0 15px;
+  height: 30px;
   color: rgb(220, 220, 220);
   font-size: .5rem;
   text-align: center;
   background: #616161;
+}
+footer > span{
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 
 
@@ -278,12 +285,16 @@ footer{
     display: table-cell;
   }
   
+  main{
+    min-height: calc(100vh - 50px);
+  }
+
   section{
     padding: 60px 10% 60px 228px;
   }
   
   footer{
-    padding: 20px 0;
+    height: 50px;
     font-size: .75rem;
   }
 }

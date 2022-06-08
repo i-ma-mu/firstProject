@@ -172,8 +172,8 @@ if($listCount != 0){
 </head>
 <body>
 <?php printHeader($PAGE_NAME,$VALUE_NETAGARD) ?>
-  <div class="bg-theme w-100 h-9px"></div>
   <main>
+    <div class="bg-theme w-100 h-9px"></div>
     <section id="word">
       <h2 class="text-center">
         <span>用語一覧</span>

@@ -180,8 +180,8 @@ if($listCount != 0){
 </head>
 <body>
 <?php printHeader($PAGE_NAME,$VALUE_NETAGARD) ?>
-  <div class="bg-theme w-100 h-9px"></div>
   <main>
+    <div class="bg-theme w-100 h-9px"></div>
     <section id="magic">
       <h2 class="text-center">
         <span>魔法一覧</span>
